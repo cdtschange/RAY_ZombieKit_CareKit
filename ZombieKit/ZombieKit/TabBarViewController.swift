@@ -28,6 +28,8 @@ class TabBarViewController: UITabBarController {
     
     fileprivate let carePlanStoreManager = CarePlanStoreManager.sharedCarePlanStoreManager
     fileprivate let carePlanData: CarePlanData
+    fileprivate var symptomTrackerViewController: OCKSymptomTrackerViewController? = nil
+
 
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,7 +64,10 @@ class TabBarViewController: UITabBarController {
     }
     
     fileprivate func createSymptomTrackerStack() -> UINavigationController {
-        let viewController = UIViewController()
+//        let viewController = UIViewController()
+        let viewController = OCKSymptomTrackerViewController(carePlanStore: carePlanStoreManager.store)
+        viewController.progressRingTintColor = UIColor.darkGreen()
+        symptomTrackerViewController = viewController
         
         viewController.tabBarItem = UITabBarItem(title: "Symptom Tracker", image: UIImage(named: "symptoms"), selectedImage: UIImage.init(named: "symptoms-filled"))
         viewController.title = "Symptom Tracker"
