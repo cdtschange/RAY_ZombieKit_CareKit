@@ -22,6 +22,7 @@
 
 import UIKit
 import ResearchKit
+import CareKit
 
 class TabBarViewController: UITabBarController {
   
