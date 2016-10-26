@@ -25,54 +25,61 @@ import ResearchKit
 import CareKit
 
 class TabBarViewController: UITabBarController {
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
-    let careCardStack = createCareCardStack()
-    let symptomTrackerStack = createSymptomTrackerStack()
-    let insightsStack = createInsightsStack()
-    let connectStack = createConnectStack()
     
-    self.viewControllers = [careCardStack,
-                            symptomTrackerStack,
-                            insightsStack,
-                            connectStack]
+    fileprivate let carePlanStoreManager = CarePlanStoreManager.sharedCarePlanStoreManager
     
-    tabBar.tintColor = UIColor.darkOrange()
-    tabBar.barTintColor = UIColor.lightGreen()
-  }
-
-  fileprivate func createCareCardStack() -> UINavigationController {
-    let viewController = UIViewController()
     
-    viewController.tabBarItem = UITabBarItem(title: "Zombie Training", image: UIImage(named: "carecard"), selectedImage: UIImage(named: "carecard-filled"))
-    viewController.title = "Zombie Training"
-    return UINavigationController(rootViewController: viewController)
-  }
-  
-  fileprivate func createSymptomTrackerStack() -> UINavigationController {
-    let viewController = UIViewController()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        let careCardStack = createCareCardStack()
+        let symptomTrackerStack = createSymptomTrackerStack()
+        let insightsStack = createInsightsStack()
+        let connectStack = createConnectStack()
+        
+        self.viewControllers = [careCardStack,
+                                symptomTrackerStack,
+                                insightsStack,
+                                connectStack]
+        
+        tabBar.tintColor = UIColor.darkOrange()
+        tabBar.barTintColor = UIColor.lightGreen()
+    }
     
-    viewController.tabBarItem = UITabBarItem(title: "Symptom Tracker", image: UIImage(named: "symptoms"), selectedImage: UIImage.init(named: "symptoms-filled"))
-    viewController.title = "Symptom Tracker"
+    fileprivate func createCareCardStack() -> UINavigationController {
+//        let viewController = UIViewController()
+        let viewController = OCKCareCardViewController(carePlanStore: carePlanStoreManager.store)
+        viewController.maskImage = UIImage(named: "heart")
+        viewController.smallMaskImage = UIImage(named: "small-heart")
+        viewController.maskImageTintColor = UIColor.darkGreen()
+        
+        viewController.tabBarItem = UITabBarItem(title: "Zombie Training", image: UIImage(named: "carecard"), selectedImage: UIImage(named: "carecard-filled"))
+        viewController.title = "Zombie Training"
+        return UINavigationController(rootViewController: viewController)
+    }
     
-    return UINavigationController(rootViewController: viewController)
-  }
-  
-  fileprivate func createInsightsStack() -> UINavigationController {
-    let viewController = UIViewController()
+    fileprivate func createSymptomTrackerStack() -> UINavigationController {
+        let viewController = UIViewController()
+        
+        viewController.tabBarItem = UITabBarItem(title: "Symptom Tracker", image: UIImage(named: "symptoms"), selectedImage: UIImage.init(named: "symptoms-filled"))
+        viewController.title = "Symptom Tracker"
+        
+        return UINavigationController(rootViewController: viewController)
+    }
     
-    viewController.tabBarItem = UITabBarItem(title: "Insights", image: UIImage(named: "insights"), selectedImage: UIImage.init(named: "insights-filled"))
-    viewController.title = "Insights"
-    return UINavigationController(rootViewController: viewController)
-  }
-  
-  fileprivate func createConnectStack() -> UINavigationController {
-    let viewController = UIViewController()
+    fileprivate func createInsightsStack() -> UINavigationController {
+        let viewController = UIViewController()
+        
+        viewController.tabBarItem = UITabBarItem(title: "Insights", image: UIImage(named: "insights"), selectedImage: UIImage.init(named: "insights-filled"))
+        viewController.title = "Insights"
+        return UINavigationController(rootViewController: viewController)
+    }
     
-    viewController.tabBarItem = UITabBarItem(title: "Connect", image: UIImage(named: "connect"), selectedImage: UIImage.init(named: "connect-filled"))
-    viewController.title = "Connect"
-    return UINavigationController(rootViewController: viewController)
-  }
+    fileprivate func createConnectStack() -> UINavigationController {
+        let viewController = UIViewController()
+        
+        viewController.tabBarItem = UITabBarItem(title: "Connect", image: UIImage(named: "connect"), selectedImage: UIImage.init(named: "connect-filled"))
+        viewController.title = "Connect"
+        return UINavigationController(rootViewController: viewController)
+    }
 }
