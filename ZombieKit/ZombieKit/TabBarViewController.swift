@@ -27,9 +27,12 @@ import CareKit
 class TabBarViewController: UITabBarController {
     
     fileprivate let carePlanStoreManager = CarePlanStoreManager.sharedCarePlanStoreManager
-    
+    fileprivate let carePlanData: CarePlanData
+
     
     required init?(coder aDecoder: NSCoder) {
+        carePlanData = CarePlanData(carePlanStore: carePlanStoreManager.store)
+
         super.init(coder: aDecoder)
         
         let careCardStack = createCareCardStack()
