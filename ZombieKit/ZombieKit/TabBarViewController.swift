@@ -29,6 +29,7 @@ class TabBarViewController: UITabBarController {
     fileprivate let carePlanStoreManager = CarePlanStoreManager.sharedCarePlanStoreManager
     fileprivate let carePlanData: CarePlanData
     fileprivate var symptomTrackerViewController: OCKSymptomTrackerViewController? = nil
+    fileprivate var insightsViewController: OCKInsightsViewController? = nil
 
 
     
@@ -79,7 +80,10 @@ class TabBarViewController: UITabBarController {
     }
     
     fileprivate func createInsightsStack() -> UINavigationController {
-        let viewController = UIViewController()
+//        let viewController = UIViewController()
+        let viewController = OCKInsightsViewController(insightItems: [OCKInsightItem.emptyInsightsMessage()],
+                                                       headerTitle: "Zombie Check", headerSubtitle: "")
+        insightsViewController = viewController
         
         viewController.tabBarItem = UITabBarItem(title: "Insights", image: UIImage(named: "insights"), selectedImage: UIImage.init(named: "insights-filled"))
         viewController.title = "Insights"

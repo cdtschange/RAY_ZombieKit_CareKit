@@ -20,6 +20,7 @@
 		12F3B8561CED59BB00B160C2 /* NSDateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3B8551CED59BB00B160C2 /* NSDateComponents.swift */; };
 		12F8DEA41D04AC700062DF98 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F8DEA31D04AC700062DF98 /* UIColor.swift */; };
 		270166751DC19DC500924287 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12F3B85D1CEF84FE00B160C2 /* HealthKit.framework */; };
+		270166771DC1A3E900924287 /* OCKInsightItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270166761DC1A3E900924287 /* OCKInsightItem.swift */; };
 		275DE4021DC0A4AF007FD5FF /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275DE3FD1DC0A490007FD5FF /* CareKit.framework */; };
 		275DE4031DC0A4AF007FD5FF /* CareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 275DE3FD1DC0A490007FD5FF /* CareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2773BE2F1DC0AC1D00DFB462 /* CarePlanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773BE2E1DC0AC1D00DFB462 /* CarePlanData.swift */; };
@@ -101,6 +102,7 @@
 		12F3B85D1CEF84FE00B160C2 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		12F8DEA31D04AC700062DF98 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UIColor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		270166741DC19DC500924287 /* ZombieKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZombieKit.entitlements; sourceTree = "<group>"; };
+		270166761DC1A3E900924287 /* OCKInsightItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKInsightItem.swift; sourceTree = "<group>"; };
 		275DE3F61DC0A490007FD5FF /* CareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKit.xcodeproj; path = Libraries/CareKit/CareKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		2773BE2E1DC0AC1D00DFB462 /* CarePlanData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarePlanData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +187,7 @@
 				12F3B8551CED59BB00B160C2 /* NSDateComponents.swift */,
 				12F8DEA31D04AC700062DF98 /* UIColor.swift */,
 				12A4E9721D14DB7F00855D28 /* DataHelpers.swift */,
+				270166761DC1A3E900924287 /* OCKInsightItem.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				12BEB6E31CFCF68C00F093FA /* CarePlanStoreManager.swift in Sources */,
 				128434701CDFA28A00979CD4 /* AppDelegate.swift in Sources */,
 				12E0A39C1D066920001706C0 /* AssessmentTaskFactory.swift in Sources */,
+				270166771DC1A3E900924287 /* OCKInsightItem.swift in Sources */,
 				12A4E9731D14DB7F00855D28 /* DataHelpers.swift in Sources */,
 				2773BE2F1DC0AC1D00DFB462 /* CarePlanData.swift in Sources */,
 				12F3B8561CED59BB00B160C2 /* NSDateComponents.swift in Sources */,
