@@ -69,11 +69,31 @@ class CarePlanData: NSObject {
             userInfo: nil)
         
         //TODO: Define assessment activities
+        let pulseActivity = OCKCarePlanActivity
+            .assessment(withIdentifier: ActivityIdentifier.pulse.rawValue,
+                        groupIdentifier: nil,
+                        title: "Pulse",
+                        text: "Do you have one?",
+                        tintColor: UIColor.darkGreen(),
+                        resultResettable: true,
+                        schedule: CarePlanData.dailyScheduleRepeating(occurencesPerDay: 1),
+                        userInfo: ["ORKTask": AssessmentTaskFactory.makePulseAssessmentTask()])
+        
+        let temperatureActivity = OCKCarePlanActivity
+            .assessment(withIdentifier: ActivityIdentifier.temperature.rawValue,
+                        groupIdentifier: nil,
+                        title: "Temperature",
+                        text: "Oral",
+                        tintColor: UIColor.darkYellow(),
+                        resultResettable: true,
+                        schedule: CarePlanData.dailyScheduleRepeating(occurencesPerDay: 1),
+                        userInfo: ["ORKTask": AssessmentTaskFactory.makeTemperatureAssessmentTask()])
         
         super.init()
         
         //TODO: Add activities to store
-        for activity in [cardioActivity, limberUpActivity, targetPracticeActivity] {
+        for activity in [cardioActivity, limberUpActivity, targetPracticeActivity,
+                         pulseActivity, temperatureActivity] {
             add(activity: activity)
         }
     }
