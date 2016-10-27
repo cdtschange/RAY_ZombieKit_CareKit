@@ -66,6 +66,9 @@ class TabBarViewController: UITabBarController {
     fileprivate func createSymptomTrackerStack() -> UINavigationController {
 //        let viewController = UIViewController()
         let viewController = OCKSymptomTrackerViewController(carePlanStore: carePlanStoreManager.store)
+        
+        viewController.delegate = self
+
         viewController.progressRingTintColor = UIColor.darkGreen()
         symptomTrackerViewController = viewController
         
@@ -89,5 +92,44 @@ class TabBarViewController: UITabBarController {
         viewController.tabBarItem = UITabBarItem(title: "Connect", image: UIImage(named: "connect"), selectedImage: UIImage.init(named: "connect-filled"))
         viewController.title = "Connect"
         return UINavigationController(rootViewController: viewController)
+    }
+}
+
+// MARK: - OCKSymptomTrackerViewControllerDelegate
+extension TabBarViewController: OCKSymptomTrackerViewControllerDelegate {
+    func symptomTrackerViewController(_ viewController: OCKSymptomTrackerViewController,
+                                      didSelectRowWithAssessmentEvent assessmentEvent: OCKCarePlanEvent) {
+        guard let userInfo = assessmentEvent.activity.userInfo,
+            let task: ORKTask = userInfo["ORKTask"] as? ORKTask else { return }
+        
+        let taskViewController = ORKTaskViewController(task: task, taskRun: nil)
+        //TODO: Set a delegate
+        taskViewController.delegate = self
+        
+        present(taskViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - ORKTaskViewControllerDelegate
+extension TabBarViewController: ORKTaskViewControllerDelegate {
+    func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith
+        reason: ORKTaskViewControllerFinishReason, error: Error?) {
+        // 1
+        defer {
+            dismiss(animated: true, completion: nil)
+        }
+        
+        // 2
+        guard reason == .completed else { return }
+        guard let symptomTrackerViewController = symptomTrackerViewController,
+            let event = symptomTrackerViewController.lastSelectedAssessmentEvent else { return }
+        //TODO: convert ORKTaskResult to CareKit result and add to store
+        let carePlanResult = carePlanStoreManager.buildCarePlanResultFrom(taskResult: taskViewController.result)
+        carePlanStoreManager.store.update(event, with: carePlanResult, state: .completed) {
+            success, _, error in
+            if !success {
+                print(error?.localizedDescription)
+            }
+        }
     }
 }
