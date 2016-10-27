@@ -39,7 +39,9 @@ class CarePlanStoreManager: NSObject {
             try! fileManager.createDirectory(at: storeURL, withIntermediateDirectories: true, attributes: nil)
         }
         store = OCKCarePlanStore(persistenceDirectoryURL: storeURL)
+
         super.init()
+        store.delegate = self
     }
     
     func buildCarePlanResultFrom(taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
@@ -57,5 +59,19 @@ class CarePlanStoreManager: NSObject {
         
         // 3
         fatalError("Unexpected task result type")
+    }
+    
+    func updateInsights() {
+        InsightsDataManager().updateInsights { (success, insightItems) in
+            guard let insightItems = insightItems, success else { return }
+            //TODO: pass insightItems to the insights controller
+        }
+    }
+}
+
+// MARK: - OCKCarePlanStoreDelegate
+extension CarePlanStoreManager: OCKCarePlanStoreDelegate {
+    func carePlanStore(_ store: OCKCarePlanStore, didReceiveUpdateOf event: OCKCarePlanEvent) {
+        updateInsights()
     }
 }
