@@ -20,6 +20,35 @@ enum ActivityIdentifier: String {
 class CarePlanData: NSObject {
     let carePlanStore: OCKCarePlanStore
     
+    let contacts =
+        [OCKContact(contactType: .personal,
+                    name: "Shaun Riley",
+                    relation: "Friend",
+                    tintColor: nil,
+                    phoneNumber: CNPhoneNumber(stringValue: "888-555-5512"),
+                    messageNumber: CNPhoneNumber(stringValue: "888-555-5512"),
+                    emailAddress: "shaunofthedead@example.com",
+                    monogram: "SR",
+                    image: UIImage(named: "shaun-avatar")),
+         OCKContact(contactType: .careTeam,
+                    name: "Columbus Ohio",
+                    relation: "Therapist",
+                    tintColor: nil,
+                    phoneNumber: CNPhoneNumber(stringValue: "888-555-5235"),
+                    messageNumber: CNPhoneNumber(stringValue: "888-555-5235"),
+                    emailAddress: "columbus@example.com",
+                    monogram: "CO",
+                    image: UIImage(named: "columbus-avatar")),
+         OCKContact(contactType: .careTeam,
+                    name: "Dr Hershel Greene",
+                    relation: "Veterinarian",
+                    tintColor: nil,
+                    phoneNumber: CNPhoneNumber(stringValue: "888-555-2351"),
+                    messageNumber: CNPhoneNumber(stringValue: "888-555-2351"),
+                    emailAddress: "dr.hershel@example.com",
+                    monogram: "HG",
+                    image: UIImage(named: "hershel-avatar"))]
+    
     class func dailyScheduleRepeating(occurencesPerDay: UInt) -> OCKCareSchedule {
         return OCKCareSchedule.dailySchedule(withStartDate: DateComponents.firstDateOfCurrentWeek,
                                              occurrencesPerDay: occurencesPerDay)

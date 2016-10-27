@@ -93,7 +93,9 @@ class TabBarViewController: UITabBarController {
     }
     
     fileprivate func createConnectStack() -> UINavigationController {
-        let viewController = UIViewController()
+//        let viewController = UIViewController()
+        let viewController = OCKConnectViewController(contacts: carePlanData.contacts)
+
         
         viewController.tabBarItem = UITabBarItem(title: "Connect", image: UIImage(named: "connect"), selectedImage: UIImage.init(named: "connect-filled"))
         viewController.title = "Connect"
