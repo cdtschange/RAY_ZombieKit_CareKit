@@ -84,6 +84,8 @@ class TabBarViewController: UITabBarController {
         let viewController = OCKInsightsViewController(insightItems: [OCKInsightItem.emptyInsightsMessage()],
                                                        headerTitle: "Zombie Check", headerSubtitle: "")
         insightsViewController = viewController
+        carePlanStoreManager.delegate = self
+        carePlanStoreManager.updateInsights()
         
         viewController.tabBarItem = UITabBarItem(title: "Insights", image: UIImage(named: "insights"), selectedImage: UIImage.init(named: "insights-filled"))
         viewController.title = "Insights"
@@ -135,5 +137,12 @@ extension TabBarViewController: ORKTaskViewControllerDelegate {
                 print(error?.localizedDescription)
             }
         }
+    }
+}
+
+// MARK: - CarePlanStoreManagerDelegate
+extension TabBarViewController: CarePlanStoreManagerDelegate {
+    func carePlanStore(_ store: OCKCarePlanStore, didUpdateInsights insights: [OCKInsightItem]) {
+        insightsViewController?.items = insights
     }
 }

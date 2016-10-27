@@ -14,6 +14,22 @@ class InsightsDataManager {
     var completionData = [(dateComponent: DateComponents, value: Double)]()
     let gatherDataGroup = DispatchGroup()
     
+    var completionSeries: OCKBarSeries {
+        // 1
+        let completionValues = completionData.map({ NSNumber(value:$0.value) })
+        
+        // 2
+        let completionValueLabels = completionValues
+            .map({ NumberFormatter.localizedString(from: $0, number: .percent)})
+        
+        // 3
+        return OCKBarSeries(
+            title: "Zombie Training",
+            values: completionValues,
+            valueLabels: completionValueLabels,
+            tintColor: UIColor.darkOrange())
+    }
+    
     func fetchDailyCompletion(startDate: DateComponents, endDate: DateComponents) {
         // 1
         gatherDataGroup.enter()
@@ -48,11 +64,34 @@ class InsightsDataManager {
             
             // 3
             self.gatherDataGroup.notify(queue: DispatchQueue.main, execute: {
-                print("completion data: \(self.completionData)")
-                completion(false, nil)
+//                print("completion data: \(self.completionData)")
+//                completion(false, nil)
+                let insightItems = self.produceInsightsForAdherence()
+                completion(true, insightItems)
             })
         }
     }
 
+    func produceInsightsForAdherence() -> [OCKInsightItem] {
+        // 1
+        let dateStrings = completionData.map({(entry) -> String in
+            guard let date = Calendar.current.date(from: entry.dateComponent)
+                else { return "" }
+            return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+        })
+        
+        //TODO: Build assessment series
+        
+        // 2
+        let chart = OCKBarChart(
+            title: "Zombie Training Plan",
+            text: "Training Compliance and Zombie Risks",
+            tintColor: UIColor.green,
+            axisTitles: dateStrings,
+            axisSubtitles: nil,
+            dataSeries: [completionSeries])
+        
+        return [chart]
+    }
 
 }

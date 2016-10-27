@@ -23,9 +23,15 @@
 import CareKit
 import ResearchKit
 
+protocol CarePlanStoreManagerDelegate: class {
+    func carePlanStore(_: OCKCarePlanStore, didUpdateInsights insights: [OCKInsightItem])
+}
+
 class CarePlanStoreManager: NSObject {
     static let sharedCarePlanStoreManager = CarePlanStoreManager()
     var store: OCKCarePlanStore
+    weak var delegate: CarePlanStoreManagerDelegate?
+
     
     override init() {
         let fileManager = FileManager.default
@@ -65,6 +71,8 @@ class CarePlanStoreManager: NSObject {
         InsightsDataManager().updateInsights { (success, insightItems) in
             guard let insightItems = insightItems, success else { return }
             //TODO: pass insightItems to the insights controller
+            self.delegate?.carePlanStore(self.store, didUpdateInsights: insightItems)
+
         }
     }
 }
